@@ -1,0 +1,7 @@
+{
+  "name": "Nalam Matrimony",
+  "description": "A premium matrimonial platform for finding life partners, featuring AI-powered matching and profile enhancement.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
