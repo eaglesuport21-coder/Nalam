@@ -19,7 +19,8 @@ export const MOCK_PROFILES: Profile[] = [
     gender: 'Female',
     about: 'I am a simple, down-to-earth person with a mix of traditional and modern values.',
     email: 'ananya@example.com',
-    password: 'password123'
+    password: 'password123',
+    isVerified: true
   },
   {
     id: '2',
@@ -38,7 +39,8 @@ export const MOCK_PROFILES: Profile[] = [
     gender: 'Male',
     about: 'Ambitious professional who loves traveling and exploring new cultures.',
     email: 'karthik@example.com',
-    password: 'password123'
+    password: 'password123',
+    isVerified: true
   },
   {
     id: '3',
@@ -57,7 +59,8 @@ export const MOCK_PROFILES: Profile[] = [
     gender: 'Female',
     about: 'Dedicated healthcare professional seeking someone who understands the demands of a medical career.',
     email: 'priyanka@example.com',
-    password: 'password123'
+    password: 'password123',
+    isVerified: false
   },
   {
     id: '4',
@@ -76,7 +79,8 @@ export const MOCK_PROFILES: Profile[] = [
     gender: 'Male',
     about: 'I run a manufacturing business and enjoy weekend cycling trips.',
     email: 'siddharth@example.com',
-    password: 'password123'
+    password: 'password123',
+    isVerified: true
   },
   {
     id: '5',
@@ -95,7 +99,8 @@ export const MOCK_PROFILES: Profile[] = [
     gender: 'Female',
     about: 'Voracious reader and a fan of Carnatic music. Looking for a soulful companion.',
     email: 'deepika@example.com',
-    password: 'password123'
+    password: 'password123',
+    isVerified: false
   },
   {
     id: '6',
@@ -114,6 +119,7 @@ export const MOCK_PROFILES: Profile[] = [
     gender: 'Male',
     about: 'Tech enthusiast who loves dogs and long drives. Balanced personality.',
     email: 'arjun@example.com',
-    password: 'password123'
+    password: 'password123',
+    isVerified: true
   }
 ];

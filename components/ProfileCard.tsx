@@ -31,10 +31,12 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
           </div>
         </div>
         
-        <div className="absolute top-4 right-4 bg-white px-3 py-1.5 rounded-full text-[10px] font-black text-rose-800 shadow-lg border border-amber-100 z-10 flex items-center space-x-1 uppercase">
-          <span className="text-amber-500">★</span>
-          <span>Verified</span>
-        </div>
+        {profile.isVerified && (
+          <div className="absolute top-4 right-4 bg-white px-3 py-1.5 rounded-full text-[10px] font-black text-rose-800 shadow-lg border border-amber-100 z-10 flex items-center space-x-1 uppercase animate-in fade-in zoom-in duration-300">
+            <span className="text-amber-500">★</span>
+            <span>Verified</span>
+          </div>
+        )}
       </div>
 
       <button 
@@ -61,7 +63,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
           "{profile.about}"
         </p>
         
-        <div className="pt-2 grid grid-cols-2 gap-3">
+        <div className="pt-2 grid grid-cols-2 gap-3 relative">
           <button 
             onClick={() => onCheckCompatibility(profile)}
             className="col-span-2 bg-amber-50 text-rose-900 border-2 border-amber-200 font-black py-3 rounded-2xl text-xs hover:bg-amber-100 transition-all flex items-center justify-center space-x-2"
@@ -74,9 +76,26 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
           >
             DETAILS
           </button>
-          <button className="bg-rose-800 text-amber-400 font-black py-3 rounded-2xl text-xs shadow-lg shadow-rose-200 hover:bg-rose-900 border-b-2 border-rose-950 transition-all">
-            CONNECT
-          </button>
+          
+          <div className="relative group/btn">
+            {profile.isVerified && (
+              <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-amber-400 text-rose-950 text-[8px] font-black px-2 py-0.5 rounded-full whitespace-nowrap shadow-sm z-10 border border-white uppercase tracking-tighter">
+                Highly Trusted Match
+              </div>
+            )}
+            <button className={`w-full font-black py-3 rounded-2xl text-xs transition-all flex items-center justify-center space-x-1 ${
+              profile.isVerified 
+              ? 'bg-gradient-to-r from-rose-800 to-rose-700 text-amber-400 shadow-[0_4px_14px_0_rgba(153,27,27,0.39)] hover:shadow-[0_6px_20px_rgba(153,27,27,0.23)] border-b-4 border-rose-950' 
+              : 'bg-rose-800 text-amber-400 shadow-lg shadow-rose-200 hover:bg-rose-900 border-b-2 border-rose-950'
+            }`}>
+              {profile.isVerified && (
+                <svg className="w-3 h-3 text-amber-400 animate-pulse" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+              )}
+              <span>{profile.isVerified ? 'VERIFIED CONNECT' : 'CONNECT'}</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>

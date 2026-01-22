@@ -55,8 +55,8 @@ const Navbar: React.FC<NavbarProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20 py-3">
           {/* Logo Section */}
-          <div className="flex items-center space-x-3">
-            <div className="bg-rose-800 text-amber-400 w-12 h-12 rounded-lg flex items-center justify-center font-bold text-2xl shadow-lg border border-amber-500/30">
+          <div className="flex items-center space-x-3 group cursor-pointer">
+            <div className="bg-rose-800 text-amber-400 w-12 h-12 rounded-lg flex items-center justify-center font-bold text-2xl shadow-lg border border-amber-500/30 group-hover:rotate-6 transition-transform">
               NM
             </div>
             <div className="flex flex-col">
@@ -79,23 +79,28 @@ const Navbar: React.FC<NavbarProps> = ({
             <div className="relative" ref={dropdownRef}>
               <button 
                 onClick={() => setIsLangOpen(!isLangOpen)}
-                className="flex items-center space-x-3 bg-white border-2 border-amber-200 hover:border-amber-400 rounded-2xl px-4 py-2 text-xs font-bold text-rose-900 transition-all shadow-sm active:scale-95 group"
+                className={`flex items-center space-x-3 border-2 rounded-2xl px-4 py-2 text-xs font-bold transition-all shadow-sm active:scale-95 group ${
+                  isLangOpen ? 'bg-amber-50 border-amber-400 text-rose-950 ring-4 ring-amber-100/50' : 'bg-white border-amber-200 text-rose-900 hover:border-amber-400'
+                }`}
               >
-                <div className="w-6 h-4 overflow-hidden rounded-sm shadow-sm border border-gray-100">
+                <div className="w-6 h-4 overflow-hidden rounded-sm shadow-sm border border-gray-100 group-hover:scale-110 transition-transform">
                   <img src={currentLangData.flag} alt={currentLangData.name} className="w-full h-full object-cover" />
                 </div>
                 <span className="uppercase tracking-wider font-black">{currentLangData.native}</span>
-                <svg className={`w-3 h-3 transition-transform duration-300 text-amber-600 ${isLangOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className={`w-3 h-3 transition-transform duration-500 text-amber-600 ${isLangOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="4" d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
 
               {isLangOpen && (
-                <div className="absolute right-0 mt-3 w-56 bg-white border-2 border-amber-100 rounded-[2rem] shadow-[0_20px_50px_rgba(153,27,27,0.15)] overflow-hidden animate-in fade-in zoom-in duration-200 ring-4 ring-rose-50/50">
+                <div className="absolute right-0 mt-3 w-60 bg-white border-2 border-amber-100 rounded-[2rem] shadow-[0_20px_50px_rgba(153,27,27,0.2)] overflow-hidden animate-in fade-in slide-in-from-top-2 zoom-in-95 duration-200 ring-4 ring-rose-50/50">
                   <div className="p-4 bg-gradient-to-r from-amber-50 to-white border-b border-amber-100">
-                    <span className="text-[10px] font-black text-rose-900 uppercase tracking-widest block">Choose Language</span>
+                    <span className="text-[10px] font-black text-rose-900 uppercase tracking-widest block flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 bg-amber-500 rounded-full animate-pulse"></span>
+                      Choose Language
+                    </span>
                   </div>
-                  <div className="p-2 space-y-1">
+                  <div className="p-2 space-y-1 max-h-80 overflow-y-auto custom-scrollbar">
                     {languages.map((lang) => (
                       <button
                         key={lang.code}
@@ -103,23 +108,25 @@ const Navbar: React.FC<NavbarProps> = ({
                           onLanguageChange(lang.code);
                           setIsLangOpen(false);
                         }}
-                        className={`w-full flex items-center justify-between px-4 py-3 rounded-2xl transition-all ${
+                        className={`w-full flex items-center justify-between px-4 py-3 rounded-2xl transition-all group/item ${
                           currentLang === lang.code 
-                          ? 'bg-rose-800 text-amber-400 shadow-lg' 
-                          : 'text-gray-700 hover:bg-amber-50 hover:text-rose-900'
+                          ? 'bg-rose-800 text-amber-400 shadow-lg scale-[1.02]' 
+                          : 'text-gray-700 hover:bg-amber-50 hover:text-rose-900 hover:scale-[1.01]'
                         }`}
                       >
                         <div className="flex items-center space-x-4">
-                          <div className={`w-8 h-5 overflow-hidden rounded shadow-sm border ${currentLang === lang.code ? 'border-amber-400/50' : 'border-gray-200'}`}>
+                          <div className={`w-8 h-5 overflow-hidden rounded shadow-sm border transition-all ${
+                            currentLang === lang.code ? 'border-amber-400 scale-110' : 'border-gray-200 group-hover/item:border-amber-200'
+                          }`}>
                             <img src={lang.flag} alt={lang.name} className="w-full h-full object-cover" />
                           </div>
                           <div className="flex flex-col items-start">
-                            <span className={`text-sm ${currentLang === lang.code ? 'font-black' : 'font-bold'}`}>{lang.native}</span>
-                            <span className={`text-[9px] uppercase tracking-tighter ${currentLang === lang.code ? 'text-rose-200' : 'text-gray-400'}`}>{lang.name}</span>
+                            <span className={`text-sm transition-colors ${currentLang === lang.code ? 'font-black' : 'font-bold'}`}>{lang.native}</span>
+                            <span className={`text-[9px] uppercase tracking-tighter transition-colors ${currentLang === lang.code ? 'text-rose-200' : 'text-gray-400 group-hover/item:text-rose-800/60'}`}>{lang.name}</span>
                           </div>
                         </div>
                         {currentLang === lang.code && (
-                          <div className="w-5 h-5 bg-amber-400 text-rose-900 rounded-full flex items-center justify-center">
+                          <div className="w-5 h-5 bg-amber-400 text-rose-900 rounded-full flex items-center justify-center shadow-inner animate-in zoom-in duration-300">
                             <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="4" d="M5 13l4 4L19 7" />
                             </svg>
@@ -175,6 +182,21 @@ const Navbar: React.FC<NavbarProps> = ({
           </div>
         </div>
       </div>
+      <style>{`
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: #fde68a;
+          border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: #fbbf24;
+        }
+      `}</style>
     </nav>
   );
 };

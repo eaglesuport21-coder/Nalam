@@ -17,6 +17,7 @@ export interface Profile {
   gender: 'Male' | 'Female';
   password?: string;
   email?: string;
+  isVerified?: boolean;
 }
 
 export interface SearchFilters {

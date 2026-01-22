@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import ProfileCard from './components/ProfileCard';
@@ -36,13 +36,27 @@ const App: React.FC = () => {
   const [isUserVerified, setIsUserVerified] = useState(false);
   const [aiInsight, setAiInsight] = useState<CompatibilityResult | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  // Search state for logged in users
+  const [searchDistrict, setSearchDistrict] = useState('');
+  const [searchPincode, setSearchPincode] = useState('');
   
   const [favorites, setFavorites] = useState<string[]>(() => {
     const saved = localStorage.getItem('nalam_favorites');
     return saved ? JSON.parse(saved) : [];
   });
 
+  const [recentlyViewed, setRecentlyViewed] = useState<Profile[]>(() => {
+    const saved = localStorage.getItem('nalam_recently_viewed');
+    return saved ? JSON.parse(saved) : [];
+  });
+
   const t = translations[currentLang];
+
+  const availableDistricts = useMemo(() => {
+    const districts = Array.from(new Set(MOCK_PROFILES.map(p => p.district))).sort();
+    return districts;
+  }, []);
 
   useEffect(() => {
     const savedUser = localStorage.getItem('nalam_user');
@@ -55,6 +69,10 @@ const App: React.FC = () => {
   useEffect(() => {
     localStorage.setItem('nalam_favorites', JSON.stringify(favorites));
   }, [favorites]);
+
+  useEffect(() => {
+    localStorage.setItem('nalam_recently_viewed', JSON.stringify(recentlyViewed));
+  }, [recentlyViewed]);
 
   useEffect(() => {
     localStorage.setItem('nalam_lang', currentLang);
@@ -72,17 +90,42 @@ const App: React.FC = () => {
     );
   };
 
-  const handleSearch = (pincode: string) => {
-    if (!pincode) {
-      setFilteredProfiles(profiles);
-      return;
+  const addToRecentlyViewed = (profile: Profile) => {
+    setRecentlyViewed(prev => {
+      const filtered = prev.filter(p => p.id !== profile.id);
+      const updated = [profile, ...filtered].slice(0, 6); // Keep last 6 viewed
+      return updated;
+    });
+  };
+
+  const handleSearch = (pincode: string, district: string) => {
+    setSearchDistrict(district);
+    setSearchPincode(pincode);
+    
+    let filtered = profiles;
+
+    if (district) {
+      filtered = filtered.filter(p => p.district === district);
     }
-    const filtered = profiles.filter(p => p.pincode.startsWith(pincode) || p.district.toLowerCase().includes(pincode.toLowerCase()));
+
+    if (pincode) {
+      filtered = filtered.filter(p => 
+        p.pincode.startsWith(pincode) || 
+        p.district.toLowerCase().includes(pincode.toLowerCase())
+      );
+    }
+
     setFilteredProfiles(filtered);
     
     // Smooth scroll to matches
     const element = document.getElementById('matches-section');
     if (element) element.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const resetFilters = () => {
+    setSearchDistrict('');
+    setSearchPincode('');
+    setFilteredProfiles(profiles);
   };
 
   const handleLogin = (e: React.FormEvent) => {
@@ -139,23 +182,19 @@ const App: React.FC = () => {
     const insight = await getMatchCompatibility(user || {}, profile);
     setAiInsight(insight);
     setIsLoading(false);
+    addToRecentlyViewed(profile);
   };
 
   const handleViewDetails = (profile: Profile) => {
     setSelectedProfile(profile);
     setIsDetailModalOpen(true);
+    addToRecentlyViewed(profile);
   };
 
   const getScoreColor = (score: number) => {
     if (score >= 80) return 'text-green-600';
     if (score >= 50) return 'text-amber-500';
     return 'text-rose-600';
-  };
-
-  const getBarColor = (score: number) => {
-    if (score >= 80) return 'bg-green-500';
-    if (score >= 50) return 'bg-amber-400';
-    return 'bg-rose-500';
   };
 
   return (
@@ -177,7 +216,12 @@ const App: React.FC = () => {
       
       <main className="flex-grow">
         {!isLoggedIn ? (
-          <Hero currentLang={currentLang} onRegisterClick={() => setIsRegisterModalOpen(true)} onSearch={handleSearch} />
+          <Hero 
+            currentLang={currentLang} 
+            onRegisterClick={() => setIsRegisterModalOpen(true)} 
+            onSearch={handleSearch} 
+            availableDistricts={availableDistricts}
+          />
         ) : (
           <div className="bg-rose-900 py-10 text-white shadow-inner">
              <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between">
@@ -199,6 +243,74 @@ const App: React.FC = () => {
           </div>
         )}
         
+        {/* Recently Viewed Section */}
+        {recentlyViewed.length > 0 && (
+          <section className="bg-amber-50/50 py-12 border-b border-amber-100">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="flex items-center space-x-3 mb-8">
+                <div className="w-10 h-10 bg-rose-800 text-amber-400 rounded-xl flex items-center justify-center shadow-lg">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <h2 className="text-2xl font-serif font-bold text-rose-950">{t.recentlyViewed}</h2>
+              </div>
+              <div className="flex overflow-x-auto pb-6 space-x-6 scrollbar-hide">
+                {recentlyViewed.map(profile => (
+                  <div key={`recent-${profile.id}`} className="flex-shrink-0 w-64">
+                    <ProfileCard 
+                      profile={profile} 
+                      isFavorite={favorites.includes(profile.id)}
+                      onToggleFavorite={toggleFavorite}
+                      onCheckCompatibility={handleCheckCompatibility}
+                      onViewDetails={handleViewDetails}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Search & Filter Bar for Logged In Users */}
+        {isLoggedIn && (
+          <div className="bg-amber-50 border-b border-amber-100 sticky top-20 z-30 shadow-sm">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+              <div className="flex flex-wrap items-center gap-4">
+                <div className="flex-grow min-w-[200px]">
+                   <select 
+                    className="w-full bg-white border-2 border-amber-200 rounded-2xl px-4 py-3 text-sm focus:border-rose-500 outline-none font-bold text-gray-700"
+                    value={searchDistrict}
+                    onChange={(e) => handleSearch(searchPincode, e.target.value)}
+                  >
+                    <option value="">{t.allDistricts}</option>
+                    {availableDistricts.map(d => (
+                      <option key={d} value={d}>{d}</option>
+                    ))}
+                  </select>
+                </div>
+                <div className="flex-grow min-w-[200px]">
+                  <input 
+                    type="text" 
+                    placeholder={t.searchPlace}
+                    value={searchPincode}
+                    onChange={(e) => handleSearch(e.target.value, searchDistrict)}
+                    className="w-full bg-white border-2 border-amber-200 rounded-2xl px-4 py-3 text-sm focus:border-rose-500 outline-none font-bold text-gray-700"
+                  />
+                </div>
+                {(searchDistrict || searchPincode) && (
+                  <button 
+                    onClick={resetFilters}
+                    className="text-rose-800 font-bold text-xs uppercase tracking-widest hover:underline"
+                  >
+                    Reset Filters
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+
         <section id="matches-section" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="flex flex-col md:flex-row justify-between items-end mb-12 border-b-2 border-amber-50 pb-6">
             <div>
@@ -226,14 +338,14 @@ const App: React.FC = () => {
           ) : (
             <div className="text-center py-20 bg-amber-50 rounded-[3rem] border-2 border-dashed border-amber-200">
               <div className="text-5xl mb-4">🔍</div>
-              <h3 className="text-2xl font-serif font-bold text-rose-900">No matches found in this Pincode</h3>
-              <p className="text-gray-500 mt-2">Try a nearby area or search by district name like "Chennai".</p>
-              <button onClick={() => handleSearch('')} className="mt-6 text-rose-800 font-bold underline">Show all profiles</button>
+              <h3 className="text-2xl font-serif font-bold text-rose-900">No matches found with these filters</h3>
+              <p className="text-gray-500 mt-2">Try a different district or search by a 6-digit Pincode.</p>
+              <button onClick={resetFilters} className="mt-6 text-rose-800 font-bold underline">Show all profiles</button>
             </div>
           )}
         </section>
 
-        {/* Login Modal */}
+        {/* Modals - Same as before */}
         {isLoginModalOpen && (
           <div className="fixed inset-0 z-[120] flex items-center justify-center p-4">
             <div className="absolute inset-0 bg-rose-950/80 backdrop-blur-sm" onClick={() => setIsLoginModalOpen(false)}></div>
@@ -283,7 +395,6 @@ const App: React.FC = () => {
           </div>
         )}
 
-        {/* Multi-step Register Modal */}
         {isRegisterModalOpen && (
           <div className="fixed inset-0 z-[120] flex items-center justify-center p-4">
             <div className="absolute inset-0 bg-rose-950/80 backdrop-blur-sm" onClick={() => setIsRegisterModalOpen(false)}></div>
@@ -406,8 +517,24 @@ const App: React.FC = () => {
             </div>
           </div>
         )}
+        
+        {isVerificationModalOpen && (
+          <VerificationModal 
+            onClose={() => setIsVerificationModalOpen(false)}
+            onVerified={() => setIsUserVerified(true)}
+          />
+        )}
       </main>
       <Footer />
+      <style>{`
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      `}</style>
     </div>
   );
 };

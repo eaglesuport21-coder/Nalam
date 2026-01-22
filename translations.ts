@@ -6,6 +6,8 @@ export const translations = {
     lookingFor: "I am looking for a",
     religion: "Of Religion",
     pincode: "Pincode / Area",
+    district: "District",
+    allDistricts: "All Districts",
     search: "SEARCH MATCHES",
     joinFree: "JOIN FREE NOW",
     login: "Login",
@@ -21,7 +23,8 @@ export const translations = {
     matches: "Matches",
     upgrade: "Upgrade",
     searchPlace: "Enter 6-digit Pincode",
-    invalidLogin: "Invalid email or password"
+    invalidLogin: "Invalid email or password",
+    recentlyViewed: "Recently Viewed Profiles"
   },
   ta: {
     heroTitle: "உங்கள் சரியான துணையைத் தேடுங்கள்",
@@ -29,6 +32,8 @@ export const translations = {
     lookingFor: "நான் தேடுவது",
     religion: "மதம்",
     pincode: "அஞ்சல் குறியீடு / பகுதி",
+    district: "மாவட்டம்",
+    allDistricts: "அனைத்து மாவட்டங்களும்",
     search: "வரன்களைத் தேடு",
     joinFree: "இலவசமாக சேருங்கள்",
     login: "உள்நுழை",
@@ -44,7 +49,8 @@ export const translations = {
     matches: "பொருத்தங்கள்",
     upgrade: "மேம்படுத்தவும்",
     searchPlace: "6-இலக்க குறியீட்டை உள்ளிடவும்",
-    invalidLogin: "தவறான மின்னஞ்சல் அல்லது கடவுச்சொல்"
+    invalidLogin: "தவறான மின்னஞ்சல் அல்லது கடவுச்சொல்",
+    recentlyViewed: "சமீபத்தில் பார்த்த வரன்கள்"
   },
   te: {
     heroTitle: "మీ పరిపూర్ణ భాగస్వామిని కనుగొనండి",
@@ -52,6 +58,8 @@ export const translations = {
     lookingFor: "నేను వెతుకుతున్నది",
     religion: "మతం",
     pincode: "పిన్‌కోడ్ / ప్రాంతం",
+    district: "జిల్లా",
+    allDistricts: "అన్ని జిల్లాలు",
     search: "శోధించండి",
     joinFree: "ఉచితంగా చేరండి",
     login: "లాగిన్",
@@ -67,7 +75,8 @@ export const translations = {
     matches: "మ్యాచ్‌లు",
     upgrade: "అప్‌గ్రేడ్",
     searchPlace: "పిన్‌కోడ్ నమోదు చేయండి",
-    invalidLogin: "చెల్లని ఇమెయిల్ లేదా పాస్‌వర్డ్"
+    invalidLogin: "చెల్లని ఇమెయిల్ లేదా పాస్‌వర్డ్",
+    recentlyViewed: "ఇటీవల చూసిన ప్రొఫైల్‌లు"
   },
   ml: {
     heroTitle: "നിങ്ങളുടെ തികഞ്ഞ പങ്കാളിയെ കണ്ടെത്തുക",
@@ -75,6 +84,8 @@ export const translations = {
     lookingFor: "ഞാൻ തിരയുന്നത്",
     religion: "മതം",
     pincode: "പിൻകോഡ് / പ്രദേശം",
+    district: "ജില്ല",
+    allDistricts: "എല്ലാ ജില്ലകളും",
     search: "തിരയുക",
     joinFree: "സൗജന്യമായി ചേരുക",
     login: "ലോഗിൻ",
@@ -90,7 +101,8 @@ export const translations = {
     matches: "മാച്ചുകൾ",
     upgrade: "അപ്ഗ്രേഡ്",
     searchPlace: "പിൻകോഡ് നൽകുക",
-    invalidLogin: "തെറ്റായ ഇമെയിൽ അല്ലെങ്കിൽ പാസ്‌വേഡ്"
+    invalidLogin: "തെറ്റായ ഇമെയിൽ അല്ലെങ്കിൽ പാസ്‌വേഡ്",
+    recentlyViewed: "അടുത്തിടെ കണ്ട പ്രൊഫൈലുകൾ"
   },
   hi: {
     heroTitle: "अपना आदर्श जीवनसाथी खोजें",
@@ -98,6 +110,8 @@ export const translations = {
     lookingFor: "मैं ढूँढ रहा हूँ",
     religion: "धर्म",
     pincode: "पिनकोड / क्षेत्र",
+    district: "जिला",
+    allDistricts: "सभी जिले",
     search: "खोजें",
     joinFree: "मुफ्त जुड़ें",
     login: "लॉगिन",
@@ -113,6 +127,7 @@ export const translations = {
     matches: "मैच",
     upgrade: "अपग्रेड",
     searchPlace: "पिनकोड दर्ज करें",
-    invalidLogin: "अमान्य ईमेल या पासवर्ड"
+    invalidLogin: "अमान्य ईमेल या पासवर्ड",
+    recentlyViewed: "हाल ही में देखे गए प्रोफाइल"
   }
 };

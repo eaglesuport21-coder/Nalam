@@ -6,12 +6,14 @@ import { translations } from '../translations';
 interface HeroProps {
   currentLang: Language;
   onRegisterClick: () => void;
-  onSearch: (pincode: string) => void;
+  onSearch: (pincode: string, district: string) => void;
+  availableDistricts: string[];
 }
 
-const Hero: React.FC<HeroProps> = ({ currentLang, onRegisterClick, onSearch }) => {
+const Hero: React.FC<HeroProps> = ({ currentLang, onRegisterClick, onSearch, availableDistricts }) => {
   const t = translations[currentLang];
   const [pincode, setPincode] = useState('');
+  const [district, setDistrict] = useState('');
 
   return (
     <div className="relative bg-white overflow-hidden">
@@ -38,6 +40,19 @@ const Hero: React.FC<HeroProps> = ({ currentLang, onRegisterClick, onSearch }) =
                     <div className="h-0.5 w-12 bg-amber-400 mx-auto mt-1"></div>
                   </div>
                   <div className="grid grid-cols-2 gap-4 w-full mb-4">
+                    <div className="col-span-2">
+                      <label className="block text-[10px] font-black text-amber-700 uppercase mb-1">{t.district}</label>
+                      <select 
+                        className="w-full bg-gray-50 border-2 border-amber-100 rounded-xl px-3 py-3 text-sm focus:border-rose-500 outline-none font-bold text-gray-700"
+                        value={district}
+                        onChange={(e) => setDistrict(e.target.value)}
+                      >
+                        <option value="">{t.allDistricts}</option>
+                        {availableDistricts.map(d => (
+                          <option key={d} value={d}>{d}</option>
+                        ))}
+                      </select>
+                    </div>
                     <div>
                       <label className="block text-[10px] font-black text-amber-700 uppercase mb-1">{t.lookingFor}</label>
                       <select className="w-full bg-gray-50 border-2 border-amber-100 rounded-xl px-3 py-3 text-sm focus:border-rose-500 outline-none font-bold text-gray-700">
@@ -58,7 +73,7 @@ const Hero: React.FC<HeroProps> = ({ currentLang, onRegisterClick, onSearch }) =
                     </div>
                   </div>
                   <button 
-                    onClick={() => onSearch(pincode)}
+                    onClick={() => onSearch(pincode, district)}
                     className="w-full bg-rose-800 text-amber-400 py-4 rounded-2xl font-black text-xl hover:bg-rose-900 transition-all shadow-xl border-b-4 border-rose-950 flex items-center justify-center space-x-2"
                   >
                     <span>{t.search}</span>

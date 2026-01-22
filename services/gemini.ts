@@ -66,6 +66,30 @@ export const getMatchCompatibility = async (userProfile: Partial<Profile>, targe
   }
 };
 
+export const generateProfileSummary = async (profile: Profile): Promise<string> => {
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+  const prompt = `
+    Create a very concise (max 2 sentences) professional personality summary for a matrimonial profile based on these details:
+    Name: ${profile.name}
+    Occupation: ${profile.occupation}
+    Education: ${profile.education}
+    About: ${profile.about}
+    
+    Focus on key personality traits and future aspirations. Make it sound warm and inviting.
+  `;
+
+  try {
+    const response = await ai.models.generateContent({
+      model: 'gemini-3-flash-preview',
+      contents: prompt,
+    });
+    return response.text || "A unique individual with bright aspirations.";
+  } catch (error) {
+    console.error("Summary Generation Error:", error);
+    return "An inspiring individual focused on a balanced life.";
+  }
+};
+
 export const verifySelfie = async (base64Image: string): Promise<{ success: boolean; feedback: string }> => {
   // Always create a new instance right before making an API call.
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
