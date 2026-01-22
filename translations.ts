@@ -7,6 +7,7 @@ export const translations = {
     religion: "Of Religion",
     pincode: "Pincode / Area",
     district: "District",
+    taluk: "Taluk / Town",
     allDistricts: "All Districts",
     search: "SEARCH MATCHES",
     joinFree: "JOIN FREE NOW",
@@ -23,8 +24,13 @@ export const translations = {
     matches: "Matches",
     upgrade: "Upgrade",
     searchPlace: "Enter 6-digit Pincode",
+    talukPlace: "Enter Taluk or Town",
     invalidLogin: "Invalid email or password",
-    recentlyViewed: "Recently Viewed Profiles"
+    recentlyViewed: "Recently Viewed Profiles",
+    connectSuccessTitle: "Interest Sent!",
+    connectSuccessMsg: "Your connection request has been sent to",
+    connectSuccessSub: "They will be notified immediately. Good luck!",
+    close: "Close"
   },
   ta: {
     heroTitle: "உங்கள் சரியான துணையைத் தேடுங்கள்",
@@ -33,6 +39,7 @@ export const translations = {
     religion: "மதம்",
     pincode: "அஞ்சல் குறியீடு / பகுதி",
     district: "மாவட்டம்",
+    taluk: "தாலுகா / நகரம்",
     allDistricts: "அனைத்து மாவட்டங்களும்",
     search: "வரன்களைத் தேடு",
     joinFree: "இலவசமாக சேருங்கள்",
@@ -49,8 +56,13 @@ export const translations = {
     matches: "பொருத்தங்கள்",
     upgrade: "மேம்படுத்தவும்",
     searchPlace: "6-இலக்க குறியீட்டை உள்ளிடவும்",
+    talukPlace: "தாலுகா அல்லது நகரத்தை உள்ளிடவும்",
     invalidLogin: "தவறான மின்னஞ்சல் அல்லது கடவுச்சொல்",
-    recentlyViewed: "சமீபத்தில் பார்த்த வரன்கள்"
+    recentlyViewed: "சமீபத்தில் பார்த்த வரன்கள்",
+    connectSuccessTitle: "விருப்பம் தெரிவிக்கப்பட்டது!",
+    connectSuccessMsg: "உங்கள் இணைப்பு கோரிக்கை அனுப்பப்பட்டது: ",
+    connectSuccessSub: "அவர்களுக்கு உடனடியாகத் தெரிவிக்கப்படும். வாழ்த்துக்கள்!",
+    close: "மூடு"
   },
   te: {
     heroTitle: "మీ పరిపూర్ణ భాగస్వామిని కనుగొనండి",
@@ -59,6 +71,7 @@ export const translations = {
     religion: "మతం",
     pincode: "పిన్‌కోడ్ / ప్రాంతం",
     district: "జిల్లా",
+    taluk: "తాలూకా / పట్టణం",
     allDistricts: "అన్ని జిల్లాలు",
     search: "శోధించండి",
     joinFree: "ఉచితంగా చేరండి",
@@ -75,8 +88,13 @@ export const translations = {
     matches: "మ్యాచ్‌లు",
     upgrade: "అప్‌గ్రేడ్",
     searchPlace: "పిన్‌కోడ్ నమోదు చేయండి",
+    talukPlace: "తాలూకా లేదా పట్టణాన్ని నమోదు చేయండి",
     invalidLogin: "చెల్లని ఇమెయిల్ లేదా పాస్‌వర్డ్",
-    recentlyViewed: "ఇటీవల చూసిన ప్రొఫైల్‌లు"
+    recentlyViewed: "ఇటీవల చూసిన ప్రొఫైల్‌లు",
+    connectSuccessTitle: "అభ్యర్థన పంపబడింది!",
+    connectSuccessMsg: "మీ కనెక్షన్ అభ్యర్థన పంపబడింది: ",
+    connectSuccessSub: "వారికి వెంటనే సమాచారం అందుతుంది. ఆల్ ది బెస్ట్!",
+    close: "మూసివేయి"
   },
   ml: {
     heroTitle: "നിങ്ങളുടെ തികഞ്ഞ പങ്കാളിയെ കണ്ടെത്തുക",
@@ -85,6 +103,7 @@ export const translations = {
     religion: "മതം",
     pincode: "പിൻകോഡ് / പ്രദേശം",
     district: "ജില്ല",
+    taluk: "താലൂക്ക് / പട്ടണം",
     allDistricts: "എല്ലാ ജില്ലകളും",
     search: "തിരയുക",
     joinFree: "സൗജന്യമായി ചേരുക",
@@ -101,8 +120,13 @@ export const translations = {
     matches: "മാച്ചുകൾ",
     upgrade: "അപ്ഗ്രേഡ്",
     searchPlace: "പിൻകോഡ് നൽകുക",
-    invalidLogin: "തെറ്റായ ഇമെയിൽ അല്ലെങ്കിൽ പാസ്‌വേഡ്",
-    recentlyViewed: "അടുത്തിടെ കണ്ട പ്രൊഫൈലുകൾ"
+    talukPlace: "താലൂക്ക് അല്ലെങ്കിൽ പട്ടണം നൽകുക",
+    invalidLogin: "തെറ്റായ ഇమెയിൽ അല്ലെങ്കിൽ പാസ്‌വേഡ്",
+    recentlyViewed: "അടുത്തിടെ കണ്ട പ്രൊഫൈലുകൾ",
+    connectSuccessTitle: "താൽപ്പര്യം അറിയിച്ചു!",
+    connectSuccessMsg: "നിങ്ങളുടെ കണക്ഷൻ അഭ്യർത്ഥന ഇതിലേക്ക് അയച്ചു: ",
+    connectSuccessSub: "അവർക്ക് ഉടൻ തന്നെ അറിയിപ്പ് ലഭിക്കും. ആശംസകൾ!",
+    close: "അടയ്ക്കുക"
   },
   hi: {
     heroTitle: "अपना आदर्श जीवनसाथी खोजें",
@@ -111,6 +135,7 @@ export const translations = {
     religion: "धर्म",
     pincode: "पिनकोड / क्षेत्र",
     district: "जिला",
+    taluk: "तहसील / शहर",
     allDistricts: "सभी जिले",
     search: "खोजें",
     joinFree: "मुफ्त जुड़ें",
@@ -127,7 +152,12 @@ export const translations = {
     matches: "मैच",
     upgrade: "अपग्रेड",
     searchPlace: "पिनकोड दर्ज करें",
+    talukPlace: "तहसील या शहर दर्ज करें",
     invalidLogin: "अमान्य ईमेल या पासवर्ड",
-    recentlyViewed: "हाल ही में देखे गए प्रोफाइल"
+    recentlyViewed: "हाल ही में देखे गए प्रोफाइल",
+    connectSuccessTitle: "रुचि भेजी गई!",
+    connectSuccessMsg: "आपका कनेक्शन अनुरोध भेजा गया है: ",
+    connectSuccessSub: "उन्हें तुरंत सूचित कर दिया जाएगा। शुभकामनाएँ!",
+    close: "बंद करें"
   }
 };

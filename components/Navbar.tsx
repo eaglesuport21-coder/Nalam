@@ -143,24 +143,52 @@ const Navbar: React.FC<NavbarProps> = ({
           {/* User Actions */}
           <div className="flex items-center space-x-4">
             {isLoggedIn ? (
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-3 md:space-x-5">
                 <div className="flex flex-col items-end">
-                  <span className="text-[10px] font-black uppercase text-gray-400 tracking-widest leading-none mb-1">{t.welcome}</span>
-                  <span className="text-sm font-black text-rose-900">{userName}</span>
+                  <div className="flex items-center space-x-2">
+                    {isVerified ? (
+                      <div className="bg-green-100 text-green-700 px-2 py-0.5 rounded-full text-[8px] font-black uppercase tracking-tighter border border-green-200 flex items-center gap-1">
+                        <svg className="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                        </svg>
+                        <span>Verified</span>
+                      </div>
+                    ) : (
+                      <div className="bg-amber-50 text-amber-600 px-2 py-0.5 rounded-full text-[8px] font-black uppercase tracking-tighter border border-amber-200/50 flex items-center gap-1">
+                        <span className="w-1.5 h-1.5 bg-amber-400 rounded-full"></span>
+                        <span>Trust: Basic</span>
+                      </div>
+                    )}
+                    <span className="text-sm font-black text-rose-900">{userName}</span>
+                  </div>
+                  <span className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">{t.welcome}</span>
                 </div>
+
                 {!isVerified && (
                   <button 
                     onClick={onStartVerification}
-                    className="bg-amber-100 text-amber-900 px-4 py-1.5 rounded-full text-[10px] font-black border-2 border-amber-200 hover:bg-amber-200 transition-all hover:scale-105 active:scale-95 shadow-sm"
+                    className="group relative flex items-center space-x-2 bg-gradient-to-r from-rose-800 to-rose-700 text-amber-400 px-4 py-2 rounded-2xl text-[10px] font-black shadow-lg border-b-4 border-rose-950 transition-all hover:scale-105 hover:-translate-y-0.5 active:scale-95 active:translate-y-0 active:border-b-0"
                   >
-                    VERIFY ME
+                    <div className="absolute -top-1 -right-1 w-3 h-3 bg-amber-400 rounded-full animate-ping opacity-75"></div>
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
+                    <span className="uppercase tracking-widest">Verify Profile</span>
+                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-32 bg-rose-900 text-white text-[9px] p-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-xl text-center">
+                      Get 5x more trust and matches!
+                      <div className="absolute top-full left-1/2 -translate-x-1/2 border-8 border-transparent border-t-rose-900"></div>
+                    </div>
                   </button>
                 )}
+
                 <button 
                   onClick={onLogout} 
-                  className="text-gray-400 hover:text-rose-800 font-black text-[10px] uppercase tracking-widest transition"
+                  className="p-2 text-gray-400 hover:text-rose-800 transition-colors group"
+                  title="Logout"
                 >
-                  Logout
+                  <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                  </svg>
                 </button>
               </div>
             ) : (
